@@ -87,7 +87,7 @@ resource "google_compute_instance" "jumphost" {
 
   boot_disk {
     initialize_params {
-      image = "${var.project_id}/debian"
+      image = "debian-cloud/debian-12"
       size  = 20
     }
   }
@@ -159,7 +159,7 @@ resource "google_compute_instance" "primary" {
   #
   boot_disk {
     initialize_params {
-      image = "${var.project_id}/debian"
+      image = "debian-cloud/debian-12"
       size  = 20
     }
   }
