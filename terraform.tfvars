@@ -30,5 +30,4 @@ os_admin_users = [
   "samuel.engstrom@chasacademy.se",
   "abdulghani.fkhir@chasacademy.se",
   "mert.asanovski@chasacademy.se",
-  "dennis.heimbert@chasacademy.se"
 ]
