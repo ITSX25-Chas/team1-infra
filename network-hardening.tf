@@ -1,24 +1,4 @@
-# Resurser skapade med gcloud 2026-10-05, importeras till Terraform.
-
-import {
-  to = google_compute_router.team
-  id = "projects/itsx25-lab/regions/europe-north2/routers/team1-router"
-}
-
-import {
-  to = google_compute_router_nat.team
-  id = "projects/itsx25-lab/regions/europe-north2/routers/team1-router/team1-nat"
-}
-
-import {
-  to = google_compute_firewall.allow_iap_ssh
-  id = "projects/itsx25-lab/global/firewalls/team1-allow-iap-ssh"
-}
-
-import {
-  to = google_compute_firewall.allow_headscale_proxy
-  id = "projects/itsx25-lab/global/firewalls/team1-allow-headscale-proxy"
-}
+# Cloud NAT, IAP-SSH och interna brandväggsregler. Skapas av pipelinen i nya projektet.
 
 # Cloud NAT: primary når internet utan att gå via jumphost
 resource "google_compute_router" "team" {
@@ -71,11 +51,6 @@ resource "google_compute_firewall" "allow_headscale_proxy" {
 
   source_ranges = ["10.0.0.2/32"]
   target_tags   = ["jumphost"]
-}
-
-import {
-  to = google_compute_firewall.allow_internal
-  id = "projects/itsx25-lab/global/firewalls/team1-allow-internal"
 }
 
 resource "google_compute_firewall" "allow_internal" {

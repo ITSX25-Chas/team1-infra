@@ -1,4 +1,4 @@
-project_id = "itsx25-lab"
+project_id = "itsx25-comerit"
 team_id    = 1
 
 ssh_users = [
@@ -30,5 +30,4 @@ os_admin_users = [
   "samuel.engstrom@chasacademy.se",
   "abdulghani.fkhir@chasacademy.se",
   "mert.asanovski@chasacademy.se",
-  "dennis.heimbert@chasacademy.se"
 ]
