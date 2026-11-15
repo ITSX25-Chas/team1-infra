@@ -36,11 +36,11 @@ Rapporten bygger på projektets egen dokumentation, kodförrådens historik, tea
 
 Jag ansvarade för stora delar av infrastrukturen, driftsättningskedjan och efterhandsanalysen. Mina bidrag går att följa i kodförrådens historik.
 
-**Infrastruktur och åtkomst.** Jag satte upp grunden för infrastruktur som kod och tog bort den brandväggsregel som exponerade en server mot hela internet, och ersatte den med säker åtkomst via identitetsstyrd anslutning (F-01, F-08). Jag bytte driftsättningens inloggning från sparade nycklar till kortlivade, automatiska identiteter (F-03, F-05) och tog bort en bred administratörsroll från driftkontot (F-02). Commits: [nätverkshärdning](LÄNK), [nyckellös autentisering](LÄNK), [least privilege IAM](LÄNK).
+**Infrastruktur och åtkomst.** Jag satte upp grunden för infrastruktur som kod och tog bort den brandväggsregel som exponerade en server mot hela internet, och ersatte den med säker åtkomst via identitetsstyrd anslutning (F-01, F-08). Jag bytte driftsättningens inloggning från sparade nycklar till kortlivade, automatiska identiteter (F-03, F-05) och tog bort en bred administratörsroll från driftkontot (F-02). Commits: [nätverkshärdning](https://github.com/ITSX25-Chas/team1-infra/commit/9d798a82b423ea465f31fa45ad845badd1d1912b), [nyckellös autentisering](https://github.com/ITSX25-Chas/team1-infra/commit/fcb8aec779d53f0c3503fb2d0d30d614cba877b5), [least privilege IAM](https://github.com/ITSX25-Chas/team1-infra/commit/674ee01523fa1c1ded10898d3a7d1bd8736faedb).
 
-**Container och applikation.** Jag härdade applikationens containrar så att de kör utan administratörsrättigheter och med skrivskyddat filsystem, och begränsade deras åtkomst till känsliga molntjänster (F-19). Jag tog bort en inloggningsbrist och införde åtkomstkontroll för användarprofiler (F-12, F-13, F-14). Commits: [NetworkPolicy](LÄNK), [applikationssäkerhet](LÄNK).
+**Container och applikation.** Jag härdade applikationens containrar så att de kör utan administratörsrättigheter och med skrivskyddat filsystem, och begränsade deras åtkomst till känsliga molntjänster (F-19). Jag tog bort en inloggningsbrist och införde åtkomstkontroll för användarprofiler (F-12, F-13, F-14). Dessa ändringar gjordes i lagets applikations- och k8s-manifest.
 
-**Felsökning och analys.** Jag utredde varför två säkerhetskontroller tyst slutat fungera (F-07, F-15). I Red Team-fasen genomförde jag attackstegen och gjorde efterhandsanalysen av försvarssidans loggar, där jag knöt varje steg till en konkret loggrad. Commit: [loggning och felsökning](LÄNK).
+**Felsökning och analys.** Jag utredde varför två säkerhetskontroller tyst slutat fungera (F-07, F-15). I Red Team-fasen genomförde jag attackstegen och gjorde efterhandsanalysen av försvarssidans loggar, där jag knöt varje steg till en konkret loggrad. Analysen är dokumenterad i [lessons-learned.md](https://github.com/ITSX25-Chas/team1-infra/blob/main/docs/final-report/lessons-learned.md).
 
 **Samarbete.** Arbetet gjordes i lag. Allt granskades och godkändes gemensamt innan det slogs samman, och lagkamraterna bidrog med egna delar och rättade mina misstag på vägen.
 
@@ -52,7 +52,7 @@ Jag ansvarade för stora delar av infrastrukturen, driftsättningskedjan och eft
 
 **Resultat.** En brandväggsregel tillät trafik från hela internet till en central server. Regeln togs bort och åtkomsten går nu via en identitetsstyrd, loggad väg.
 
-**Evidens.** Kodändring i infrastrukturförrådet ([commit](LÄNK)), och ett sluttest som bekräftade att ingen regel längre öppnade mot hela internet och att den publika inloggningen var stängd.
+**Evidens.** Kodändring i infrastrukturförrådet ([commit](https://github.com/ITSX25-Chas/team1-infra/commit/9d798a82b423ea465f31fa45ad845badd1d1912b)), och ett sluttest som bekräftade att ingen regel längre öppnade mot hela internet och att den publika inloggningen var stängd.
 
 **Verksamhets- och säkerhetsbetydelse.** En öppen server är den första måltavlan för ett angrepp. Att stänga den tar bort den enklaste vägen in.
 
@@ -62,7 +62,7 @@ Jag ansvarade för stora delar av infrastrukturen, driftsättningskedjan och eft
 
 **Resultat.** Tre sparade nycklar med administratörsbehörighet ersattes med kortlivade, automatiska identiteter. Driftkontots breda roll ersattes med smala roller.
 
-**Evidens.** Molnplattformen visar noll sparade nycklar på driftkontot och ingen administratörsroll ([commit](LÄNK)). Driftsättningarna fungerar utan sparade hemligheter.
+**Evidens.** Molnplattformen visar noll sparade nycklar på driftkontot och ingen administratörsroll ([commit](https://github.com/ITSX25-Chas/team1-infra/commit/fcb8aec779d53f0c3503fb2d0d30d614cba877b5)). Driftsättningarna fungerar utan sparade hemligheter.
 
 **Verksamhets- och säkerhetsbetydelse.** En läckt sparad nyckel med bred behörighet hade kunnat skada alla lags miljöer i det delade projektet. Nu finns ingen sådan nyckel att stjäla.
 
@@ -72,7 +72,7 @@ Jag ansvarade för stora delar av infrastrukturen, driftsättningskedjan och eft
 
 **Resultat.** Från webbsidan utan inloggning tog vi oss till kommandokörning, läsning av en root-skyddad fil och åtkomst till interna personuppgifter.
 
-**Evidens.** Penetrationstestrapporten med reproduktionssteg och bevis ([rapport](LÄNK)), samt försvarssidans loggar där varje steg finns registrerat.
+**Evidens.** Penetrationstestrapporten med reproduktionssteg och bevis (inlämnad separat i Red Team-inlämningen), samt försvarssidans loggar där varje steg finns registrerat.
 
 **Verksamhets- och säkerhetsbetydelse.** Kedjan krävde inga avancerade verktyg. Den visar hur snabbt flera små brister tillsammans leder till en personuppgiftsincident.
 
@@ -82,7 +82,7 @@ Jag ansvarade för stora delar av infrastrukturen, driftsättningskedjan och eft
 
 **Resultat.** Efter testet visade loggarna att hela angreppet fanns registrerat, men att inget larm hade gått och ingen respons påbörjats.
 
-**Evidens.** Jämförelse mellan våra dokumenterade attackssteg och försvarssidans loggar ([post-mortem](LÄNK)).
+**Evidens.** Jämförelse mellan våra dokumenterade attackssteg och försvarssidans loggar ([post-mortem](https://github.com/ITSX25-Chas/team1-infra/blob/main/docs/final-report/lessons-learned.md)).
 
 **Verksamhets- och säkerhetsbetydelse.** Att samla in loggar är inte samma sak som att upptäcka ett angrepp. Utan övervakning som larmar hade ett skarpt intrång kunnat pågå oupptäckt.
 
